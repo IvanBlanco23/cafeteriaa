@@ -1,0 +1,22 @@
+<section class="staff-page">
+  <h1>Pedidos en Cola</h1>
+
+  <div *ngFor="let order of orders" class="order-card">
+    <h3>Pedido #{{ order.id }}</h3>
+    <p><strong>Cliente:</strong> {{ order.customer }}</p>
+
+    <ul>
+      <li *ngFor="let item of order.items">
+        {{ item.name }} - ${{ item.price }}
+      </li>
+    </ul>
+
+    <p><strong>Estado:</strong> {{ order.status }}</p>
+
+    <div class="actions">
+      <button (click)="updateStatus(order.id, 'preparando')">Preparar</button>
+      <button (click)="updateStatus(order.id, 'listo')">Listo</button>
+      <button (click)="updateStatus(order.id, 'entregado')">Entregado</button>
+    </div>
+  </div>
+</section>

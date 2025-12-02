@@ -1,0 +1,30 @@
+.home-container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #666;
+}
+
+.actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn {
+  background-color: #8b4513;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.btn.secondary {
+  background-color: #444;
+}

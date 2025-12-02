@@ -1,0 +1,43 @@
+<section class="menu-page">
+  <h1>Menú</h1>
+
+  <div class="menu-grid">
+    <div class="card" *ngFor="let item of menu">
+      <h3>{{ item.name }}</h3>
+      <p class="price">${{ item.price }}</p>
+
+      <button (click)="openCustomize(item)">Personalizar</button>
+    </div>
+  </div>
+</section>
+
+<div class="modal" *ngIf="selected">
+  <div class="modal-content">
+    <h2>{{ selected.name }}</h2>
+    
+
+    <label>
+      Tamaño:
+      <select [(ngModel)]="custom.size">
+        <option value="chico">Chico</option>
+        <option value="mediano">Mediano</option>
+        <option value="grande">Grande</option>
+      </select>
+    </label>
+
+    <label>
+      Extras:
+      <input type="checkbox" (change)="toggleExtra('Crema')" /> Crema
+      <input type="checkbox" (change)="toggleExtra('Vainilla')" /> Vainilla
+      <input type="checkbox" (change)="toggleExtra('Chocolate')" /> Chocolate
+    </label>
+
+    <label>
+      Notas:
+      <textarea [(ngModel)]="custom.notes"></textarea>
+    </label>
+
+    <button (click)="addCustomized()">Agregar al carrito</button>
+    <button class="close" (click)="selected=null">Cerrar</button>
+  </div>
+</div>

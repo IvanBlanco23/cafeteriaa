@@ -1,0 +1,18 @@
+<h1>Recibo</h1>
+
+<div *ngIf="order">
+  <p><strong>Pedido #{{ order.id }}</strong></p>
+  <p>Cliente: {{ order.customer }}</p>
+  <p>Fecha: {{ order.date | date:'short' }}</p>
+
+  <h3>Items:</h3>
+  <ul>
+    <li *ngFor="let item of order.items">
+      {{ item.name }} - ${{ item.price }}
+    </li>
+  </ul>
+
+  <h2>Total: ${{ order.total }}</h2>
+
+  <h3>Estado: {{ order.status }}</h3>
+</div>

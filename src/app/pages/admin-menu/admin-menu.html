@@ -1,0 +1,24 @@
+<section class="admin-menu">
+  <h1>Administrar Menú</h1>
+
+  <button (click)="createNew()">Agregar nuevo producto</button>
+
+  <div *ngFor="let item of menu" class="item-row">
+    <strong>{{ item.name }}</strong> - ${{ item.price }}
+    <button (click)="startEdit(item)">Editar</button>
+    <button (click)="delete(item.id)">Eliminar</button>
+  </div>
+
+  <!-- Formulario de edición / creación -->
+  <div *ngIf="editing" class="edit-box">
+    <h2>{{ editing.id ? 'Editar producto' : 'Nuevo producto' }}</h2>
+
+    <input type="text" placeholder="Nombre" [(ngModel)]="editing.name">
+    <input type="number" placeholder="Precio" [(ngModel)]="editing.price">
+
+    <button *ngIf="editing.id" (click)="saveEdit()">Guardar cambios</button>
+    <button *ngIf="!editing.id" (click)="addNew()">Agregar</button>
+
+    <button (click)="editing = null">Cancelar</button>
+  </div>
+</section>

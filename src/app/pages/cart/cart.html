@@ -1,0 +1,17 @@
+<h1>Carrito</h1>
+
+<div *ngFor="let item of cart">
+  <h3>{{ item.name }}</h3>
+  <p>${{ item.price }}</p>
+
+  <div *ngIf="item.customization">
+    <small>Tamaño: {{ item.customization.size }}</small><br>
+    <small>Extras: {{ item.customization.extras.join(', ') }}</small><br>
+    <small>Notas: {{ item.customization.notes }}</small>
+  </div>
+
+  <hr>
+</div>
+
+<button (click)="checkout()">Realizar pedido</button>
+<button (click)="payOnline()">Pagar en línea</button>

@@ -1,0 +1,14 @@
+.admin-menu {
+  padding: 20px;
+}
+
+.item-row {
+  margin-bottom: 10px;
+}
+
+.edit-box {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+}

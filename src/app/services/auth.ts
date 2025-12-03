@@ -10,9 +10,10 @@ export class AuthService {
       const storedUsers = localStorage.getItem("users");
       if (!storedUsers) {
         localStorage.setItem("users", JSON.stringify([
-          { email: "admin@cafe.com", password: "123456", role: "admin" },
-          { email: "user@cafe.com", password: "123456", role: "user" }
-        ]));
+  { email: "admin@cafe.com", password: "123456", role: "admin" },
+  { email: "user@cafe.com", password: "123456", role: "user" },
+  { email: "staff@cafe.com", password: "123456", role: "staff" }
+]));
       }
     }
   }
@@ -26,17 +27,22 @@ export class AuthService {
     localStorage.setItem("users", JSON.stringify(users));
   }
 
- login(email: string, password: string): boolean {
+login(email: string, password: string): boolean {
   const users = this.getUsers();
   const user = users.find((u: any) => u.email === email && u.password === password);
 
   if (user) {
-    localStorage.setItem("user", JSON.stringify(user));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("user", JSON.stringify(user));
+      window.dispatchEvent(new Event('user-changed')); 
+    }
     return true;
   }
 
   return false;
 }
+
+
 
 register(email: string, password: string): boolean {
   const users = this.getUsers();
@@ -59,17 +65,26 @@ register(email: string, password: string): boolean {
   return true;
 }
 
-
-  logout() {
+logout() {
+  if (typeof window !== 'undefined') {
     localStorage.removeItem("user");
+    window.dispatchEvent(new Event('user-changed'));
   }
+}
 
-  isLogged(): boolean {
-    if (typeof window === 'undefined') return false;
-    return !!localStorage.getItem("user");
-  }
 
-  getUser() {
-    return JSON.parse(localStorage.getItem("user") || "null");
+isLogged(): boolean {
+  if (typeof window === 'undefined') return false;
+  return !!localStorage.getItem("user");
+}
+
+getUser() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem("user");
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
   }
+}
 }

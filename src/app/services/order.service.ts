@@ -40,18 +40,21 @@ export class OrderService {
   getPendingOrders(): Order[] {
     return this.getOrders().filter((o: Order) => o.status !== "entregado");
   }
-
 updateOrderStatus(
   id: number,
-  status: 'pendiente' | 'preparando' | 'listo' | 'entregado'
+  status: "pendiente" | "preparando" | "listo" | "entregado"
 ): void {
   const orders = this.getOrders();
-  const index = orders.findIndex((o: Order) => o.id === id);
+  const index = orders.findIndex(o => o.id === id);
 
   if (index !== -1) {
     orders[index].status = status;
     this.saveOrders(orders);
   }
+}
+
+getOrdersRaw() {
+  return this.getOrders();
 }
 
 

@@ -1,0 +1,22 @@
+.navbar{
+  width:100%;
+  background: linear-gradient(90deg, rgba(255,36,103,0.06), rgba(109,43,255,0.03));
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  padding:14px 20px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.navbar a{
+  margin-right:12px;
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:8px;
+  font-weight:600;
+}
+.navbar a:hover{
+  background: rgba(255,255,255,0.02);
+  color:var(--accent);
+}

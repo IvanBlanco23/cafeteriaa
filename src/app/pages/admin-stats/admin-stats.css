@@ -1,0 +1,22 @@
+.stats {
+  padding: 20px;
+}
+
+.stat-box {
+  background: #eee;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.status-item {
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 10px;
+}

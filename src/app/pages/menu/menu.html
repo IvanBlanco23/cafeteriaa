@@ -1,22 +1,26 @@
 <section class="menu-page">
-  <h1>Menú</h1>
+  <h1 class="menu-title">Nuestro Menú</h1>
 
   <div class="menu-grid">
     <div class="card" *ngFor="let item of menu">
       <h3>{{ item.name }}</h3>
       <p class="price">${{ item.price }}</p>
 
-      <button (click)="openCustomize(item)">Personalizar</button>
+      <button class="primary-btn small" (click)="openCustomize(item)">
+        Personalizar
+      </button>
     </div>
   </div>
 </section>
 
+<!-- Modal -->
 <div class="modal" *ngIf="selected">
-  <div class="modal-content">
-    <h2>{{ selected.name }}</h2>
-    
+  <div class="modal-content fade-in">
 
-    <label>
+    <h2>{{ selected.name }}</h2>
+    <p class="modal-price">Desde ${{ selected.price }}</p>
+
+    <label class="label">
       Tamaño:
       <select [(ngModel)]="custom.size">
         <option value="chico">Chico</option>
@@ -25,19 +29,24 @@
       </select>
     </label>
 
-    <label>
+    <label class="label">
       Extras:
-      <input type="checkbox" (change)="toggleExtra('Crema')" /> Crema
-      <input type="checkbox" (change)="toggleExtra('Vainilla')" /> Vainilla
-      <input type="checkbox" (change)="toggleExtra('Chocolate')" /> Chocolate
+      <div class="extras-list">
+        <label><input type="checkbox" (change)="toggleExtra('Crema')"> Crema</label>
+        <label><input type="checkbox" (change)="toggleExtra('Vainilla')"> Vainilla</label>
+        <label><input type="checkbox" (change)="toggleExtra('Chocolate')"> Chocolate</label>
+      </div>
     </label>
 
-    <label>
+    <label class="label">
       Notas:
       <textarea [(ngModel)]="custom.notes"></textarea>
     </label>
 
-    <button (click)="addCustomized()">Agregar al carrito</button>
-    <button class="close" (click)="selected=null">Cerrar</button>
+    <div class="modal-buttons">
+      <button class="primary-btn" (click)="addCustomized()">Agregar al carrito</button>
+      <button class="ghost-btn" (click)="selected = null">Cerrar</button>
+    </div>
+
   </div>
 </div>

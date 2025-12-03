@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
-
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,16 +10,10 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './menu.html',
   styleUrls: ['./menu.css'],
   imports: [CommonModule, FormsModule]
-
 })
 export class MenuComponent {
 
-  menu = [
-    { id: 1, name: "Capuccino", price: 45 },
-    { id: 2, name: "Latte", price: 40 },
-    { id: 3, name: "Americano", price: 30 }
-  ];
-
+  menu: any[] = [];
   selected: any = null;
 
   custom = {
@@ -28,7 +22,11 @@ export class MenuComponent {
     notes: ""
   };
 
-  constructor(private cart: CartService) {}
+  constructor(private cart: CartService, private menuService: MenuService) {}
+
+  ngOnInit() {
+    this.menu = this.menuService.getMenu();
+  }
 
   openCustomize(item: any) {
     this.selected = item;

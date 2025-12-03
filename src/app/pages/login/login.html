@@ -1,13 +1,17 @@
-<section class="login-page">
+<div class="login-container">
   <h1>Iniciar sesión</h1>
 
-  <form (submit)="login($event)">
+  <form (ngSubmit)="login()">
     <input type="email" placeholder="Correo" [(ngModel)]="email" name="email" required>
     <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required>
-    <button type="submit">Entrar</button>
+
+    <button type="submit">Ingresar</button>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
   </form>
 
-  <p *ngIf="error" class="error">{{ error }}</p>
-
-  <a routerLink="/register">¿No tienes cuenta? Regístrate aquí</a>
-</section>
+  <p class="alt-link">
+    ¿No tienes cuenta?
+    <a (click)="goRegister()">Regístrate aquí</a>
+  </p>
+</div>

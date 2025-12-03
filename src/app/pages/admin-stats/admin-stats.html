@@ -1,0 +1,37 @@
+<section class="stats">
+  <h1>Estadísticas de Ventas</h1>
+
+  <div class="stat-box">
+    <h2>Total de Ventas</h2>
+    <p>${{ totalVentas }}</p>
+  </div>
+
+  <div class="stat-box">
+    <h2>Total de Pedidos</h2>
+    <p>{{ totalPedidos }}</p>
+  </div>
+
+  <div class="status-grid">
+
+    <div class="status-item pendiente">
+      <h3>Pendientes</h3>
+      <p>{{ pendientes }}</p>
+    </div>
+
+    <div class="status-item preparando">
+      <h3>Preparando</h3>
+      <p>{{ preparando }}</p>
+    </div>
+
+    <div class="status-item listo">
+      <h3>Listos</h3>
+      <p>{{ listos }}</p>
+    </div>
+
+    <div class="status-item entregado">
+      <h3>Entregados</h3>
+      <p>{{ entregados }}</p>
+    </div>
+
+  </div>
+</section>

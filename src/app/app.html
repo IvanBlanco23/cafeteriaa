@@ -1,11 +1,19 @@
 <nav class="navbar">
+
   <a routerLink="/">Inicio</a>
-  <a routerLink="/menu">Menú</a>
-  <a routerLink="/cart">Carrito</a>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Registro</a>
+
+  <a *ngIf="user" routerLink="/menu">Menú</a>
+  <a *ngIf="user" routerLink="/cart">Carrito</a>
+  <a *ngIf="user" routerLink="/order-status">Estado de pedido</a>
+
+  <a *ngIf="user?.role === 'admin'" routerLink="/admin-menu">Gestionar menú</a>
+  <a *ngIf="user?.role === 'staff'" routerLink="/staff-queue">Pedidos (Staff)</a>
+
+  <a *ngIf="!user" routerLink="/login">Login</a>
+  <a *ngIf="!user" routerLink="/register">Registro</a>
+
 </nav>
 
 <router-outlet></router-outlet>
-<footer class="footer">
-  <p>&copy; 2024 Cafetería. Todos los derechos reservados.</p>
+
+<footer>2025 Cafeteria Copyright</footer>

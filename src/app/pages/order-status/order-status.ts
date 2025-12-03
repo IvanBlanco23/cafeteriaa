@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 
 @Component({
@@ -14,13 +13,16 @@ export class OrderStatusComponent {
 
   order: any = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private orderService: OrderService
-  ) {}
+  constructor(private orderService: OrderService) {}
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.order = this.orderService.getOrderById(id);
+    const stateOrderId = history.state?.orderId;
+    const savedId = Number(localStorage.getItem("currentOrderId"));
+
+    const orderIdToLoad = stateOrderId || savedId;
+
+    if (orderIdToLoad) {
+      this.order = this.orderService.getOrderById(orderIdToLoad);
+    }
   }
 }

@@ -1,14 +1,9 @@
-.admin-menu {
-  padding: 20px;
+.admin-menu{padding:40px 20px}
+.admin-menu h1{font-size:28px}
+.item-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px;border-radius:10px;background:var(--glass-strong);margin:10px 0;
+  border:1px solid rgba(255,255,255,0.03)
 }
-
-.item-row {
-  margin-bottom: 10px;
-}
-
-.edit-box {
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 8px;
-}
+.edit-box{margin-top:18px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+.edit-box input{width:100%;margin:8px 0}

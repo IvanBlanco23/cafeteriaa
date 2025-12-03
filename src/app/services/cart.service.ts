@@ -1,31 +1,43 @@
 import { Injectable } from '@angular/core';
+import { OrderService } from './order.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CartService {
 
-  private storageKey = "cart";
+  constructor(private orderService: OrderService) {}
 
-  private getStoredCart(): any[] {
-    return JSON.parse(localStorage.getItem(this.storageKey) || "[]");
+  getCart() {
+    return JSON.parse(localStorage.getItem('cart') || '[]');
   }
 
-  private saveCart(cart: any[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(cart));
-  }
-
-  addToCart(item: any): void {
-    const cart = this.getStoredCart();
+  addToCart(item: any) {
+    const cart = this.getCart();
     cart.push(item);
-    this.saveCart(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  getCart(): any[] {
-    return this.getStoredCart();
+  clearCart() {
+    localStorage.removeItem('cart');
   }
 
-  clear(): void {
-    localStorage.removeItem(this.storageKey);
+  removeItem(index: number) {
+    const cart = this.getCart();
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  checkoutOrder() {
+    const cart = this.getCart();
+    const user = this.getUser();
+
+    const orderId = this.orderService.createOrder(cart, user);
+
+    this.clearCart();
+
+    return orderId;
+  }
+
+  private getUser() {
+    return JSON.parse(localStorage.getItem("user") || "null");
   }
 }

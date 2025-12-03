@@ -1,17 +1,35 @@
-<h1>Carrito</h1>
+<section class="cart-page">
+  <h1 class="cart-title">Tu Carrito</h1>
 
-<div *ngFor="let item of cart">
-  <h3>{{ item.name }}</h3>
-  <p>${{ item.price }}</p>
-
-  <div *ngIf="item.customization">
-    <small>Tamaño: {{ item.customization.size }}</small><br>
-    <small>Extras: {{ item.customization.extras.join(', ') }}</small><br>
-    <small>Notas: {{ item.customization.notes }}</small>
+  <!-- Si está vacío -->
+  <div class="empty" *ngIf="cart.length === 0">
+    <p>Tu carrito está vacío.</p>
+    <a routerLink="/menu" class="primary-btn">Ver menú</a>
   </div>
 
-  <hr>
-</div>
+  <!-- Lista de productos -->
+  <div class="cart-list" *ngIf="cart.length > 0">
+    <div class="cart-item fade-in" *ngFor="let item of cart; let i = index">
+      
+      <div class="info">
+        <h3>{{ item.name }}</h3>
+        <p class="sub">
+          {{ item.customization?.size || 'mediano' }}
+          <span *ngIf="item.customization?.extras.length">
+            • Extras: {{ item.customization.extras.join(', ') }}
+          </span>
+        </p>
+      </div>
 
-<button (click)="checkout()">Realizar pedido</button>
-<button (click)="payOnline()">Pagar en línea</button>
+      <p class="price">${{ item.price }}</p>
+
+      <button class="remove-btn" (click)="remove(i)">✕</button>
+    </div>
+  </div>
+
+  <!-- Total -->
+  <div class="cart-footer" *ngIf="cart.length > 0">
+    <h2>Total: ${{ total }}</h2>
+    <button class="primary-btn big" (click)="checkout()">Realizar pedido</button>
+  </div>
+</section>

@@ -1,18 +1,32 @@
-<h1>Recibo</h1>
+<div class="status-container" *ngIf="order; else noOrder">
+  
+  <h1>Estado de tu pedido</h1>
 
-<div *ngIf="order">
-  <p><strong>Pedido #{{ order.id }}</strong></p>
-  <p>Cliente: {{ order.customer }}</p>
-  <p>Fecha: {{ order.date | date:'short' }}</p>
+  <div class="order-card">
+    <p><strong>Pedido #{{ order.id }}</strong></p>
 
-  <h3>Items:</h3>
-  <ul>
-    <li *ngFor="let item of order.items">
-      {{ item.name }} - ${{ item.price }}
-    </li>
-  </ul>
+    <h3>Productos:</h3>
+    <ul>
+      <li *ngFor="let item of order.items">
+        {{ item.name }} — ${{ item.price }}
+      </li>
+    </ul>
 
-  <h2>Total: ${{ order.total }}</h2>
+    <h3>Total: ${{ order.total }}</h3>
 
-  <h3>Estado: {{ order.status }}</h3>
+    <h3>Estado actual:</h3>
+
+    <div class="status-box" [ngClass]="order.status">
+      {{ order.status | titlecase }}
+    </div>
+  </div>
+
 </div>
+
+<ng-template #noOrder>
+  <div class="no-order">
+    <h2>No hay pedidos en curso</h2>
+    <p>Parece que aún no has realizado un pedido.</p>
+    <a routerLink="/menu" class="btn">Ir al menú</a>
+  </div>
+</ng-template>

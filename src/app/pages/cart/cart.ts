@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
-import { OrderService } from '../../services/order.service';
-import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-cart',
@@ -14,44 +13,29 @@ import { AuthService } from '../../services/auth';
 export class CartComponent {
 
   cart: any[] = [];
+  total = 0;
 
-  constructor(
-    private orderService: OrderService,
-    private auth: AuthService,
-    private router: Router
-  ) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit() {
-    const storedCart = localStorage.getItem("cart");
-    this.cart = storedCart ? JSON.parse(storedCart) : [];
+    this.cart = this.cartService.getCart();
+    this.calculateTotal();
   }
 
-  getTotal() {
-    return this.cart.reduce((sum, item) => sum + item.price, 0);
+  remove(index: number) {
+    this.cartService.removeItem(index);
+    this.cart = this.cartService.getCart();
+    this.calculateTotal();
   }
 
-  removeItem(i: number) {
-    this.cart.splice(i, 1);
-    localStorage.setItem("cart", JSON.stringify(this.cart));
+  calculateTotal() {
+    this.total = this.cart.reduce((sum, item) => sum + item.price, 0);
   }
 
   checkout() {
-    const user = this.auth.getUser();
-    const id = this.orderService.createOrder(this.cart, user);
+  const orderId = this.cartService.checkoutOrder();
+  localStorage.setItem("currentOrderId", String(orderId));
+  this.router.navigate(['/order-status'], { state: { orderId } });
+}
 
-    this.cart = [];
-    localStorage.removeItem("cart");
-
-    this.router.navigate(['/order-status', id]);
-  }
-
-  payOnline() {
-    const total = this.getTotal();
-
-    alert(`Redirigiendo a pasarela de pago...\nTotal a pagar: $${total}`);
-
-    this.checkout(); 
-  }
-
-  
 }
